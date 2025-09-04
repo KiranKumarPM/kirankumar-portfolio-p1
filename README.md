@@ -75,8 +75,9 @@ Before running this project, make sure you have:
    git push origin main
    ```
 
-2. **Deploy with Vercel**
-   - Go to [vercel.com](https://vercel.com)
+2. ## Deploy with Vercel
+
+   - Go to [View My Portfolio](https://kirankumar-portfolio-p1-git-main-kirankumarpms-projects.vercel.app)
    - Sign up/login with your GitHub account
    - Click "New Project"
    - Import your `kirankumar-portfolio` repository
