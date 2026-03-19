@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"
 export default function ProfileDropdown() {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef(null)
+  const profileImageSrc = `${import.meta.env.BASE_URL}profile.jpeg`
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -34,7 +35,17 @@ export default function ProfileDropdown() {
         whileTap={{ scale: 0.95 }}
         className="relative inline-flex items-center justify-center overflow-hidden rounded-full border border-slate-700 bg-gradient-to-br from-slate-200/40 to-slate-400/20 shadow-sm transition-all duration-200 hover:shadow-lg w-16 h-16"
       >
-        <span className="pointer-events-none text-xs text-slate-300">Photo</span>
+        <img
+          src={profileImageSrc}
+          alt="Profile"
+          className="avatar-hd h-full w-full object-cover object-center"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          onError={(e) => {
+            e.currentTarget.src = `${import.meta.env.BASE_URL}favicon.svg`
+          }}
+        />
       </motion.button>
 
       {/* Dropdown Menu */}

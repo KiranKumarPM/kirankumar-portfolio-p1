@@ -20,7 +20,7 @@ const education = [
     id: 3,
     school: "Siddaganga Institute of Technology, Tumakuru",
     degree: "B.Tech Computer Science & Engineering",
-    period: "2023 – 2024",
+    period: "2023 – 2027",
     details: "Focused on software engineering, data structures, and systems design."
   }
 ]

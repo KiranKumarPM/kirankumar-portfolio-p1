@@ -27,4 +27,79 @@ html, body { min-height: 100%; }
 body { background: transparent; }
 
 /* Subtle glassmorphism for sections */
-.section-hover { border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; background: rgba(15, 23, 42, 0.18); backdrop-filter: blur(6px); }
+.section-hover { border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; background: rgba(15, 23, 42, 0.18); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+
+/* ========== GLASSMORPHISM UTILITY CLASSES ========== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-card-hover:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.5s ease;
+}
+
+/* ========== PERSPECTIVE WRAPPER ========== */
+.perspective-wrapper {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+/* ========== AVATAR CLARITY ========== */
+.avatar-hd {
+  image-rendering: auto;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  filter: contrast(1.06) saturate(1.08);
+}
+
+/* ========== GLOBAL SMOOTH SCROLL & FONT ========== */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========== MOBILE CURSOR HIDE ========== */
+@media (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+  body {
+    cursor: auto !important;
+  }
+}
+
+/* ========== CUSTOM ANIMATIONS ========== */
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 120%;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
