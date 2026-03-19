@@ -2,15 +2,12 @@
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import ProfileDropdown from "./ProfileDropdown.jsx"
+import { useTheme } from "../hooks/useTheme.js"
 
-export default function Navbar({ theme, onToggle }) {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const { theme, toggleTheme } = useTheme()
   const profileImageSrc = `${import.meta.env.BASE_URL}profile.jpeg`
-
-  useEffect(() => {
-    const root = document.documentElement
-    root.classList.toggle("dark", theme === "dark")
-  }, [theme])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,8 +37,8 @@ export default function Navbar({ theme, onToggle }) {
     <header
       className={`sticky top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-white/8 backdrop-blur-2xl border-b border-white/15 shadow-lg shadow-black/20"
-          : "bg-white/5 backdrop-blur-xl border-b border-white/10"
+          ? "bg-black/50 backdrop-blur-xl border-b border-white/10 shadow-lg"
+          : "bg-transparent border-b border-transparent"
       }`}
     >
       <motion.nav
@@ -93,7 +90,7 @@ export default function Navbar({ theme, onToggle }) {
 
           {/* Theme toggle button with glass styling */}
           <motion.button
-            onClick={onToggle}
+            onClick={toggleTheme}
             aria-label="Toggle theme"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

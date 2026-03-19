@@ -1,14 +1,16 @@
 ﻿// App.jsx - Main app component with CustomCursor integration and enhanced animations
-import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import CustomCursor from "./components/CustomCursor.jsx"
 import Navbar from "./components/Navbar.jsx"
+import { useTheme } from "./hooks/useTheme.js"
 import Hero from "./sections/Hero.jsx"
+import About from "./sections/About.jsx"
 import Education from "./sections/Education.jsx"
 import Projects from "./sections/Projects.jsx"
 import Certificates from "./sections/Certificates.jsx"
 import Links from "./sections/Links.jsx"
 import TechnicalSkills from "./sections/TechnicalSkills.jsx"
+import LeetCodeStats from "./components/LeetCodeStats.jsx"
 import GitHub from "./sections/GitHub.jsx"
 import LinkedIn from "./sections/LinkedIn.jsx"
 import LeetCode from "./sections/LeetCode.jsx"
@@ -16,11 +18,7 @@ import Contact from "./sections/Contact.jsx"
 import Social from "./sections/Social.jsx"
 
 export default function App() {
-  const [theme, setTheme] = useState("dark")
-  
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark")
-  }, [theme])
+  useTheme()
 
   const reveal = { hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } }
   
@@ -55,9 +53,18 @@ export default function App() {
         />
       </div>
 
-      <Navbar theme={theme} onToggle={() => setTheme((t) => (t === "dark" ? "light" : "dark"))} />
+      <Navbar />
       <main>
         <Hero />
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={reveal}
+          transition={{ delay: 0.5, duration: 0.6 }}
+        >
+          <About />
+        </motion.div>
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -84,6 +91,15 @@ export default function App() {
           transition={{ delay: 1.2, duration: 0.6 }}
         >
           <TechnicalSkills />
+        </motion.div>
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={reveal}
+          transition={{ delay: 1.3, duration: 0.6 }}
+        >
+          <LeetCodeStats />
         </motion.div>
         <motion.div
           initial="hidden"

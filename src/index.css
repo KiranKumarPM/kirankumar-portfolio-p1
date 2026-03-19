@@ -1,6 +1,8 @@
 ﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Changed: Added resume button hover glow and shine sweep animation styles. */
+/* Note: Styles are scoped to .resume-btn and do not alter existing button behavior. */
 :root { --container: 1200px; }
 .container { width: 100%; max-width: var(--container); margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
 html { scroll-behavior: smooth; }
@@ -102,4 +104,78 @@ html {
 
 .animate-pulse-slow {
   animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.skill-bar-fill {
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-bar-fill::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 2.5s infinite;
+}
+
+.resume-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.resume-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.resume-btn:hover::after {
+  left: 140%;
+}
+
+.resume-btn:hover {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.2);
+}
+
+/* Smooth theme transition */
+html {
+  transition: background-color 0.3s ease;
+}
+
+*, *::before, *::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.no-transition, .no-transition * {
+  transition: none !important;
+}
+
+/* Glass card utility overrides for both light and dark modes */
+.glass-card {
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.dark .glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.20),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+:root:not(.dark) .glass-card {
+  background: rgba(255, 255, 255, 0.70);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }

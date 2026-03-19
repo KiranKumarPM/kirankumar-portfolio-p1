@@ -1,4 +1,6 @@
-﻿// Hero.jsx - Enhanced with animated orbs, gradient text, shine effects, and scroll indicator
+﻿// Changed: Added a Download Resume CTA button beside existing hero CTAs.
+// Note: Resume link uses placeholder href with TODO since no resume PDF exists in public folder.
+// Hero.jsx - Enhanced with animated orbs, gradient text, shine effects, and scroll indicator
 import { motion } from "framer-motion"
 import { fadeUp, staggerContainer } from "../utils/motionVariants.js"
 
@@ -281,6 +283,32 @@ export default function Hero() {
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
               </motion.svg>
             </span>
+          </motion.a>
+
+          <motion.a
+            href="/resume.pdf"
+            download="Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+            className="resume-btn inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 font-semibold text-white bg-gradient-to-r from-purple-600 to-cyan-500"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-5 w-5"
+            >
+              <path d="M12 3v12" />
+              <path d="m7 10 5 5 5-5" />
+              <path d="M5 21h14" />
+            </svg>
+            <span>Download Resume</span>
           </motion.a>
         </motion.div>
       </motion.div>

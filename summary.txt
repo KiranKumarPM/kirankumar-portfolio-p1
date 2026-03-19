@@ -1,86 +1,263 @@
-### 1. Project Structure
+PORTFOLIO EXACT REBUILD PROMPT (CURRENT IMPLEMENTED VERSION)
 
-Your project is a standard React application built with Vite. Here’s a breakdown of the key files and folders:
+Copy and use this prompt as-is.
 
-*   **`index.html`**: The main HTML file. Your entire React application is injected into the `<div id="root"></div>` element inside this file.
-*   **`package.json`**: This file lists all your project's dependencies (like React, Framer Motion, and Tailwind CSS) and defines scripts to run, build, and test your application.
-*   **`vite.config.js`**: The configuration file for Vite, your project's build tool. It tells Vite how to compile and serve your application.
-*   **`tailwind.config.cjs` & `postcss.config.cjs`**: These files configure Tailwind CSS, your styling framework.
-*   **`public/`**: A folder for static assets like images, videos, and certificates that are directly accessible in the browser.
-*   **`src/`**: This is where all your source code lives.
-    *   **`main.jsx`**: This is the **entry point** of your application. It finds the `root` div in `index.html` and tells React to render your main `App` component inside it.
-    *   **`index.css`**: A global stylesheet where you've defined custom styles, including the animated cursor, background video styling, and link hover effects.
-    *   **`App.jsx`**: The main component that acts as a container for your entire portfolio. It assembles all the different sections (Hero, Projects, etc.).
-    *   **`components/`**: This folder contains reusable UI pieces.
-        *   `Navbar.jsx`: The navigation bar at the top of the page.
-        *   `ProfileDropdown.jsx`: The dropdown menu in the navbar.
-    *   **`sections/`**: This folder contains the major content blocks of your portfolio. Each file represents a different section of your single-page application (e.g., `Hero.jsx`, `Projects.jsx`, `Contact.jsx`).
+Build my portfolio in React + Vite + Tailwind + Framer Motion to match the CURRENT IMPLEMENTED state exactly. Do not add extra features, do not remove any current feature, and do not rename section ids or change links unless explicitly stated below.
 
-### 2. Component Flow
+Global requirements
+- Use a fixed full-screen background video at /videos/bg.mp4 with layered gradient/radial overlays.
+- Keep custom cursor behavior (dot + ring) on desktop only, hide on coarse/touch pointer devices.
+- Keep glassmorphism utility style for cards and controls.
+- Keep smooth reveal animations with Framer Motion throughout sections.
+- Keep light/dark theme with html class mode (dark or light), localStorage persistence, and early anti-flash script in index head.
+- Keep body class bg-slate-950 text-slate-100.
 
-Your application is built from nested components. The parent-child relationships are straightforward:
+Theme behavior (must match)
+- Add an inline script in index.html head that:
+  - Reads localStorage theme.
+  - Falls back to prefers-color-scheme.
+  - Applies html class dark or light before app render.
+- Use a reusable useTheme hook:
+  - Initial theme from localStorage or system preference.
+  - Toggle function switching dark/light.
+  - Sync html classes and localStorage.
 
-*   **`App.jsx`** is the top-level parent component.
-*   Inside `App.jsx`, you render several child components in a specific order:
-    1.  `Navbar`
-    2.  `Hero`
-    3.  `Education`
-    4.  `Projects`
-    5.  `TechnicalSkills`
-    6.  `Certificates`
-    7.  `GitHub`
-    8.  `LinkedIn`
-    9.  `LeetCode`
-    10. `Contact`
-*   The `Navbar` component itself has a child: `ProfileDropdown`.
+App composition and order (exact)
+- Render sections in this exact order:
+  1) Navbar
+  2) Hero
+  3) About
+  4) Education
+  5) Projects
+  6) Technical Skills
+  7) LeetCode Stats
+  8) Certificates
+  9) GitHub
+  10) LinkedIn
+  11) LeetCode
+  12) Contact
+- Keep Social component not actively rendered (guarded false branch).
 
-Think of it like building blocks: `App.jsx` is the main board, and you place each section component onto it one by one.
+Navbar (exact behavior)
+- Sticky top navbar.
+- Scrolled state:
+  - scrolled true: bg-black/50 backdrop blur border and shadow.
+  - scrolled false: transparent.
+- Left side:
+  - Circular profile image from profile.jpeg (fallback favicon.svg).
+  - Animated letter-by-letter text: Kiran Kumar PM with gradient text.
+- Right side:
+  - ProfileDropdown button (large round profile image).
+  - Theme toggle button using useTheme:
+    - Shows icon + text Dark when theme is dark.
+    - Shows icon + text Light when theme is light.
 
-### 3. Rendering Flow
+Profile dropdown (exact menu items)
+- Dropdown opens from right with spring animation.
+- Close on outside click and mouse leave.
+- Menu items exactly:
+  - Certificates -> #certificates
+  - Education -> #education
+  - Projects -> #projects
+  - Technical Skills -> #technical-skills
+  - GitHub -> https://github.com/KiranKumarPM?tab=repositories
+  - LinkedIn -> https://www.linkedin.com/in/kiran-kumar-p-m-462350279
+  - Contact -> #contact
+- Internal links smooth-scroll, external links open in new tab.
 
-Here is how your portfolio appears on the screen:
+Hero section (exact content)
+- Section id: home.
+- Background video layer and animated gradient orbs.
+- Main text:
+  - Name: Kiran Kumar PM
+  - Subtitle: Computer Science Engineer | AI Innovator
+- Contact quick links:
+  - tel:+917411063990 and label +91 7411063990
+  - mailto:kkpm3020@gmail.com and label kkpm3020@gmail.com
+- CTA buttons (all 3):
+  - Explore Projects -> #projects
+  - Connect With Me -> #social (keep this href as-is)
+  - Download Resume button:
+    - href /resume.pdf
+    - download Resume.pdf
+    - target _blank rel noopener noreferrer
+    - use resume-btn shine/glow style
+- Keep bottom bouncing chevron scroll indicator.
 
-1.  The browser loads `index.html`.
-2.  The script tag in `index.html` executes `src/main.jsx`.
-3.  `main.jsx` renders the `App` component.
-4.  The `App` component renders its children in sequence, from top to bottom. This is why the "Hero" section appears first, followed by "Education," "Projects," and so on, creating the vertical layout of your portfolio.
+About section (exact text)
+- Section id: about.
+- Title: About Me
+- Subtitle: A focused journey in AI and full-stack engineering
+- 4 paragraphs exactly with highlighted phrases:
+  - Artificial Intelligence
+  - full-stack development
+  - Data Structures and Algorithms
+- Keep content exactly as:
+  I am a passionate Software Engineering student focused on building real-world solutions using Artificial Intelligence and full-stack development.
+  I specialize in developing systems that solve practical problems - from decentralized academic credential verification to AI-driven fraud detection and healthcare optimization. My approach combines strong problem-solving skills with clean, scalable code practices.
+  Currently, I am actively strengthening my Data Structures and Algorithms foundation while building impactful projects that demonstrate my ability to design and implement efficient, real-world solutions.
+  I am seeking opportunities where I can contribute, learn, and grow as a developer - while building technology that creates meaningful change.
 
-### 4. Data Flow
+Education section (exact cards)
+- Section id: education.
+- 3 card timeline entries:
+  1) Banasiri Lions Educational Society, Shikaripur
+     - Degree: 10th (KSEEB)
+     - Period: July 2007 – March 2019
+     - Details: Completed secondary education under KSEEB with strong fundamentals.
+  2) Sri Adichunchanagiri PU College, Shivamogga
+     - Degree: 12, PCMB
+     - Period: July 2021 – March 2023
+     - Details: Pre-university PCMB with emphasis on analytical problem solving.
+  3) Siddaganga Institute of Technology, Tumakuru
+     - Degree: B.Tech Computer Science & Engineering
+     - Period: 2023 – 2027
+     - Details: Focused on software engineering, data structures, and systems design.
+- Keep active-card scaling effect, timeline progress bar, and fullscreen expand modal.
 
-Your portfolio's data is handled in a simple way:
+Projects section (must include ALL cards exactly)
+- Section id: projects.
+- Title: Projects
+- Subtitle: Showcasing full-stack, ML, and AI-driven applications
+- Grid cards include exactly 4 projects:
 
-*   **Hardcoded Data**: Almost all the data (your education history, project details, skills list) is "hardcoded" directly inside the component that displays it. For example, the project information is written directly into the `Projects.jsx` file.
-*   **Component State**: Some components use React's `useState` hook to manage internal data, like whether a dropdown menu is open or closed. This data is not shared with other components.
-*   **Props**: You are not passing data down from parent to child components (using props) in most cases. The structure is simple, with each section managing its own content.
+1) Servon – Smart Service Connector
+- Description: ₹1 quotation system, OTP login, JWT roles, real-time chat, reviews.
+- Tech: React, Node, MongoDB, MUI
+- Role: Full‑stack Developer
+- Year: 2024
+- Link: https://github.com/KiranKumarPM?tab=repositories
 
-### 5. Styling System
+2) Privacy-First AI Proctoring
+- Description: Behavioral anomaly detection with ML (Isolation Forest, Autoencoders).
+- Tech: Python, ML, A11y
+- Role: ML Engineer
+- Year: 2023
+- Link: https://github.com/KiranKumarPM?tab=repositories
 
-You use a combination of three methods for styling:
+3) KrishiMitra
+- Description: AI precision farming with weather & community features.
+- Tech: ML, React, API
+- Role: Frontend Developer
+- Year: 2023
+- Link: https://github.com/KiranKumarPM?tab=repositories
 
-1.  **Tailwind CSS**: This is your primary styling method. You use utility classes (like `bg-gray-900`, `text-white`, `p-4`) directly in your JSX to style elements. These are configured in `tailwind.config.cjs`.
-2.  **Custom CSS**: For more complex styles that are hard to achieve with Tailwind alone (like the custom cursor and specific animations), you have written custom CSS rules in `src/index.css`.
-3.  **Inline Styles**: Some dynamic styles, particularly for animations managed by Framer Motion, are applied as inline styles directly on the HTML elements.
+4) BlockCreds (special card behavior)
+- Name: BlockCreds
+- Tagline: Decentralized Academic Credential Verification
+- Role: Full‑stack Developer
+- Year: 2026
+- Category: Blockchain / Full Stack
+- Status: Completed
+- Problem:
+  Academic certificate fraud is rampant. Traditional verification is slow, expensive, and relies on centralized authorities that can be manipulated or fail.
+- Solution:
+  BlockCreds eliminates fraud using blockchain-stored certificate hashes (Polygon Amoy Testnet), IPFS for decentralized PDF storage, and QR-based real-time verification — making certificates tamper-proof and instantly verifiable by anyone, anywhere.
+- Features:
+  - Tamper-proof certificates stored on IPFS
+  - Smart contract validation on Polygon
+  - QR code real-time verification
+  - Bulk certificate issuance via CSV
+  - Certificate revocation mechanism
+  - Email notification system
+- Tech Stack:
+  Polygon (Blockchain), Solidity (Smart Contract), IPFS / Pinata, Django, Web3.py, Tailwind CSS, Bootstrap, SQLite
+- GitHub: https://github.com/KiranKumarPM/Blockcreds
+- Live demo: disabled chip showing Soon.
 
-### 6. Routing
+Projects interaction requirements
+- Keep tilt card effect.
+- On hover, show detailed panels with:
+  - Role and Year badges
+  - Problem
+  - Solution
+  - Tech Stack chips
+  - Key Features list
+  - View Code button + disabled Live Demo chip
+- BlockCreds uses its own detailed content panel and clickable top-right arrow to GitHub.
 
-Your portfolio is a **Single-Page Application (SPA)**.
+Technical Skills section (exact structure and values)
+- Section id: technical-skills.
+- Heading only: Technical Skills (no subtitle line).
+- Compact vertical category cards.
+- Each category expands on hover/focus/click and collapses when mouse leaves section.
+- Keep rotating chevron icon and circular glow reveal.
+- Keep all skills at 75% and skill bar shimmer.
+- Categories and items exactly:
+  - Languages: C++, JavaScript, Python
+  - Technical Skills: Compiler Design (Self Study), Microcontroller (ARM), Operating System
+  - Web Development: HTML, CSS, JavaScript
+  - Database: MongoDB, SqlLite
+  - Developer Tools: VS Code, Google Colab
+  - MS Office: Word, PowerPoint, Excel
+  - Version Control: Git, GitHub
 
-*   You are **not using a routing library** like React Router.
-*   Navigation is handled by standard HTML anchor links (e.g., `<a href="#projects">`). When a user clicks a link in the navbar, the browser smoothly scrolls to the corresponding section on the same page.
+LeetCode Stats section (exact values)
+- Section id: leetcode-stats.
+- Title: LeetCode Stats
+- Subtitle: Progress snapshot across coding difficulty levels
+- Keep premium solved progress card with circular conic ring and bars.
+- Data must be exactly:
+  - Total solved: 241
+  - Easy: 87
+  - Medium: 133
+  - Hard: 21
+  - Total problems: 3874
+  - Ranking badge: Rank 599,491
+  - Streak: null (hidden when unavailable)
+- Difficulty solved text exactly:
+  - Easy: 87 / 932 solved
+  - Medium: 133 / 2027 solved
+  - Hard: 21 / 915 solved
+- Footer link: https://leetcode.com/u/KiranKumarPM/
 
-### 7. Projects Section Deep Dive
+Certificates section (all cards exact)
+- Section id: certificates.
+- Title: Certificates
+- Subtitle: Professional credentials and certifications
+- Render exactly 5 cards with issuer and file path:
+  1) AI Brewery Hackathon | issuer AI Brewery | /certificates/ai-brewery.pdf
+  2) OS Badge | issuer Open Source | /certificates/os-badge.pdf
+  3) Python Essentials (Cisco) | issuer Cisco Academy | /certificates/python-cisco.pdf
+  4) Infosys | issuer Infosys | /certificates/infosyis.pdf
+  5) MIT Hackathon | issuer MIT | /certificates/mit-hackothon.pdf
+- Keep hover reveal with small PDF iframe preview.
 
-The "Projects" section works as follows:
+Social profile sections (exact)
+- GitHub section id github:
+  - Button text: GitHub Repositories
+  - Link: https://github.com/KiranKumarPM?tab=repositories
+- LinkedIn section id linkedin:
+  - Button text: LinkedIn Profile
+  - Link: https://www.linkedin.com/in/kiran-kumar-p-m-462350279
+- LeetCode section id leetcode:
+  - Button text: LeetCode Profile
+  - Link: https://leetcode.com/u/KiranKumarPM/
 
-1.  **Static Data**: Inside `Projects.jsx`, you have an array of JavaScript objects. Each object represents one project and contains its title, description, image, and links.
-2.  **Mapping and Rendering**: The component uses the `.map()` function to loop through this array. For each project object in the array, it renders a "project card" component with that project's data.
-3.  **Static Rendering**: Because the data is hardcoded, the project cards are static. To add, remove, or change a project, you would need to edit the array inside the `Projects.jsx` file directly.
+Contact section (exact)
+- Section id: contact.
+- Title: Get In Touch
+- Subtitle: Have a project in mind? Let's collaborate!
+- Quick call chip: +91 7411063990 with tel link.
+- Glass form with floating labels:
+  - name, email, message
+- On submit:
+  - show success message: ✓ Thanks! Your message was captured.
+  - reset form values
+- Submit button text: Send Message
+- Footer links inside form:
+  - GitHub -> https://github.com/KiranKumarPM
+  - LinkedIn -> https://linkedin.com/in/kiran-kumar-p-m-462350279
 
-### 8. Interactivity
+CSS and interaction details to keep
+- skill-bar-fill shimmer animation.
+- resume-btn shine sweep and glow.
+- glass-card overrides for dark and light root classes.
+- Theme transition styles and no-transition utility.
+- Body uses cursor none on desktop because custom cursor is rendered.
 
-Your portfolio has several interactive elements, primarily handled by **Framer Motion** and CSS:
-
-*   **Animations**: Sections and elements fade in and slide up as you scroll down the page. This is done with Framer Motion's `whileInView` prop.
-*   **Hover Effects**: Many elements react when you hover over them (e.g., buttons scale up, links show an underline, project cards tilt). These are created with a mix of CSS `:hover` pseudo-classes and Framer Motion's `whileHover` prop.
-*   **Buttons and Links**: Standard `<a>` and `<button>` tags are used for navigation and actions. Their functionality is based on default browser behavior (scrolling to an anchor, opening a link) or simple JavaScript click handlers.
-*   **Custom Cursor**: The animated dot that follows your mouse is created with JavaScript that tracks the mouse's position and updates the `top` and `left` CSS properties of two `div` elements.
+Final constraints
+- Keep all existing ids, titles, labels, and links exactly as listed.
+- Keep all current card counts exactly (no extra cards, no missing cards).
+- Keep existing animation style and visual language (glass, gradients, hover lift, tilt).
+- Do not invent new section content.
